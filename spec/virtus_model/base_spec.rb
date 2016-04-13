@@ -127,20 +127,34 @@ describe VirtusModel::Base do
   describe '#assign_attributes' do
     context SimpleModel do
       subject { SimpleModel.new.assign_attributes(attributes) }
-      let(:attributes) { { name: 'test', other: 'test' } }
 
-      it { expect(subject.attributes).to include(name: 'test') }
-      it { expect(subject.attributes).not_to include(other: 'test') }
+      context 'hash' do
+        let(:attributes) { { name: 'test', other: 'test' } }
+        it { expect(subject.attributes).to include(name: 'test') }
+        it { expect(subject.attributes).not_to include(other: 'test') }
+      end
+
+      context 'object' do
+        let(:attributes) { simple_model }
+        it { expect(subject == simple_model).to be(true) }
+      end
     end
 
     context ComplexModel do
       subject { ComplexModel.new.assign_attributes(attributes) }
-      let(:attributes) { { model: model, models: [model], other: 'test' } }
-      let(:model) { { name: 'test', other: 'test' } }
 
-      it { expect(subject.attributes[:model]).to eq(SimpleModel.new(model)) }
-      it { expect(subject.attributes[:models]).to eq([SimpleModel.new(model)]) }
-      it { expect(subject.attributes).not_to include(other: 'test') }
+      context 'hash' do
+        let(:attributes) { { model: model, models: [model], other: 'test' } }
+        let(:model) { { name: 'test', other: 'test' } }
+        it { expect(subject.attributes[:model]).to eq(SimpleModel.new(model)) }
+        it { expect(subject.attributes[:models]).to eq([SimpleModel.new(model)]) }
+        it { expect(subject.attributes).not_to include(other: 'test') }
+      end
+
+      context 'object' do
+        let(:attributes) { complex_model }
+        it { expect(subject == complex_model).to be(true) }
+      end
     end
   end
 
@@ -269,22 +283,6 @@ describe VirtusModel::Base do
       subject { complex_model }
 
       it { expect(subject.to_json).to eq(subject.export.to_json) }
-    end
-  end
-
-  describe '.from_json' do
-    context SimpleModel do
-      subject { SimpleModel }
-      let(:source) { simple_model_attributes.to_json }
-
-      it { expect(subject.from_json(source)).to eq(simple_model) }
-    end
-
-    context ComplexModel do
-      subject { ComplexModel }
-      let(:source) { complex_model_attributes.to_json }
-
-      it { expect(subject.from_json(source)).to eq(complex_model) }
     end
   end
 

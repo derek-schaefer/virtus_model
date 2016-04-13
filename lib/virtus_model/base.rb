@@ -38,11 +38,6 @@ module VirtusModel
       end.map(&:name)
     end
 
-    # Alias of #from_json.
-    def self.from_json(*args)
-      new.from_json(*args)
-    end
-
     # Initialize attributes using the provided hash or object.
     def initialize(model = nil)
       assign_attributes(model)
@@ -50,7 +45,14 @@ module VirtusModel
 
     # Recursively update attributes and return a self-reference.
     def assign_attributes(model)
-      self.attributes = model || {}
+      self.attributes = self.class.attributes.reduce({}) do |result, name|
+        if model.respond_to?(name)
+          result[name] = model.public_send(name)
+        elsif model.respond_to?(:[])
+          result[name] = model[name]
+        end
+        result
+      end
       self
     end
 
