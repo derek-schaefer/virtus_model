@@ -210,15 +210,23 @@ describe VirtusModel::Base do
     context SimpleModel do
       subject { simple_model }
 
-      context 'equal' do
-        let(:other) { subject.dup }
-
+      context 'equal hash' do
+        let(:other) { subject.dup.export }
         it { expect(subject == other).to be(true) }
       end
 
-      context 'unequal' do
-        let(:other) { subject.dup.assign_attributes(name: 'test2') }
+      context 'equal object' do
+        let(:other) { subject.dup }
+        it { expect(subject == other).to be(true) }
+      end
 
+      context 'unequal hash' do
+        let(:other) { subject.dup.export.merge(name: 'test2') }
+        it { expect(subject == other).to be(false) }
+      end
+
+      context 'unequal object' do
+        let(:other) { subject.dup.assign_attributes(name: 'test2') }
         it { expect(subject == other).to be(false) }
       end
     end
@@ -226,15 +234,23 @@ describe VirtusModel::Base do
     context ComplexModel do
       subject { complex_model }
 
-      context 'equal' do
-        let(:other) { subject.dup }
-
+      context 'equal hash' do
+        let(:other) { subject.dup.export }
         it { expect(subject == other).to be(true) }
       end
 
-      context 'unequal' do
-        let(:other) { subject.dup.models[0].assign_attributes(name: 'test2') }
+      context 'equal object' do
+        let(:other) { subject.dup }
+        it { expect(subject == other).to be(true) }
+      end
 
+      context 'unequal hash' do
+        let(:other) { subject.dup.export.merge(models: { name: 'test2' }) }
+        it { expect(subject == other).to be(false) }
+      end
+
+      context 'unequal object' do
+        let(:other) { subject.dup.assign_attributes(models: [{ name: 'test2' }]) }
         it { expect(subject == other).to be(false) }
       end
     end
@@ -320,6 +336,20 @@ describe VirtusModel::Base do
         it { expect(subject.errors.messages).to include(:"model[name]" => ["can't be blank"]) }
         it { expect(subject.errors.messages).to include(:"models[0][name]" => ["can't be blank"]) }
       end
+    end
+  end
+
+  describe '#to_json' do
+    context SimpleModel do
+      subject { simple_model }
+
+      it { expect(subject.to_json).to eq(subject.export.to_json) }
+    end
+
+    context ComplexModel do
+      subject { complex_model }
+
+      it { expect(subject.to_json).to eq(subject.export.to_json) }
     end
   end
 end

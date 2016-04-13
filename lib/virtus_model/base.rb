@@ -4,7 +4,6 @@ require 'active_model'
 module VirtusModel
   class Base
     include ActiveModel::Model
-    include ActiveModel::Serializers::JSON
     include Virtus.model
 
     set_callback :validate, :validate_associations
@@ -94,6 +93,16 @@ module VirtusModel
     # Alias of #to_hash.
     def to_h(options = nil)
       to_hash(options)
+    end
+
+    # Alias of #export.
+    def as_json(options = nil)
+      export(options)
+    end
+
+    # Convert the #as_json result to JSON.
+    def to_json(options = nil)
+      as_json(options).to_json
     end
 
     protected
