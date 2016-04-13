@@ -3,7 +3,8 @@ require 'active_model'
 
 module VirtusModel
   class Base
-    include ActiveModel::Model
+    include ActiveModel::Conversion
+    include ActiveModel::Validations
     include Virtus.model
 
     set_callback :validate, :validate_associations
