@@ -40,19 +40,12 @@ module VirtusModel
 
     # Initialize attributes using the provided hash or object.
     def initialize(model = nil)
-      assign_attributes(model)
+      super(compact_hash(extract_attributes(model)))
     end
 
     # Recursively update attributes and return a self-reference.
     def assign_attributes(model)
-      self.attributes = self.class.attributes.reduce({}) do |result, name|
-        if model.respond_to?(name)
-          result[name] = model.public_send(name)
-        elsif model.respond_to?(:[])
-          result[name] = model[name]
-        end
-        result
-      end
+      self.attributes = extract_attributes(model)
       self
     end
 
@@ -64,7 +57,7 @@ module VirtusModel
 
     # Two models are equal if their attributes are equal.
     def ==(other)
-      if other.respond_to?(:attributes)
+      if other.is_a?(VirtusModel::Base)
         self.attributes == other.attributes
       else
         self.attributes == other
@@ -108,6 +101,18 @@ module VirtusModel
 
     protected
 
+    # Extract model attributes into a hash.
+    def extract_attributes(model)
+      self.class.attributes.reduce({}) do |result, name|
+        if model.respond_to?(name)
+          result[name] = model.public_send(name)
+        elsif model.respond_to?(:[])
+          result[name] = model[name]
+        end
+        result
+      end
+    end
+
     # Validate all associations by type and import resulting errors.
     def validate_associations
       validate_associations_one
@@ -138,6 +143,11 @@ module VirtusModel
       model.errors.each do |field, error|
         errors.add("#{name}[#{field}]", error)
       end
+    end
+
+    # Omit keys with nil values.
+    def compact_hash(hash)
+      hash.select { |_, value| !value.nil? }
     end
   end
 end

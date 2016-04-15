@@ -111,7 +111,7 @@ describe VirtusModel::Base do
 
       context 'attributes are blank' do
         let(:attributes) { nil }
-        it { expect(subject.attributes).to eq(model: nil, models: nil) }
+        it { expect(subject.attributes).to eq(model: nil, models: []) }
       end
 
       context 'attributes are present' do
@@ -188,7 +188,7 @@ describe VirtusModel::Base do
 
       context 'attributes are blank' do
         let(:attributes) { nil }
-        it { expect(subject.export).to eq(model: nil, models: nil) }
+        it { expect(subject.export).to eq(model: nil, models: []) }
         it { expect(valid).to be(false) }
       end
 
