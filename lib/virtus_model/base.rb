@@ -69,9 +69,9 @@ module VirtusModel
       self.class.attributes.reduce({}) do |result, name|
         value = attributes[name]
         if self.class.association?(name, :many)
-          result[name] = value ? value.map(&:export) : nil
+          result[name] = export_values(value, options)
         elsif self.class.association?(name, :one)
-          result[name] = value ? value.export : nil
+          result[name] = export_value(value, options)
         else
           result[name] = value
         end
@@ -143,6 +143,18 @@ module VirtusModel
       model.errors.each do |field, error|
         errors.add("#{name}[#{field}]", error)
       end
+    end
+
+    # Export each value with the provided options.
+    def export_values(values, options = nil)
+      return if values.nil?
+      values.map { |v| export_value(v, options) }
+    end
+
+    # Export the value with the provided options.
+    def export_value(value, options = nil)
+      return if value.nil?
+      value.respond_to?(:export) ? value.export(options) : value
     end
 
     # Omit keys with nil values.
