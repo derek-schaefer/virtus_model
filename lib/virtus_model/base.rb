@@ -119,14 +119,14 @@ module VirtusModel
       validate_associations_many
     end
 
-    # Validate "has_one" associations and import errors.
+    # Validate "one" associations and import errors.
     def validate_associations_one
       self.class.associations(:one).each do |name|
         import_errors(name, attributes[name])
       end
     end
 
-    # Validate "has_many" associations and import errors.
+    # Validate "many" associations and import errors.
     def validate_associations_many
       self.class.associations(:many).each do |name|
         values = attributes[name] || []
