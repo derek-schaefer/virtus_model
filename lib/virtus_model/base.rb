@@ -1,5 +1,6 @@
 require 'virtus'
 require 'active_model'
+require 'active_support/core_ext/hash/keys'
 
 module VirtusModel
   class Base
@@ -91,7 +92,7 @@ module VirtusModel
 
     # Alias of #export.
     def as_json(options = nil)
-      export(options)
+      export(options).deep_stringify_keys
     end
 
     # Convert the #as_json result to JSON.

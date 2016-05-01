@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'virtus', '~> 1.0'
   s.add_dependency 'activemodel', '~> 4.2'
+  s.add_dependency 'activesupport', '~> 4.2'
   s.add_development_dependency 'rake', '~> 11.1'
   s.add_development_dependency 'rdoc', '~> 4.2'
   s.add_development_dependency 'rspec', '~> 3.4'

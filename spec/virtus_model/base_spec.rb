@@ -276,7 +276,7 @@ describe VirtusModel::Base do
 
       it { expect(subject.to_hash).to eq(subject.export) }
       it { expect(subject.to_h).to eq(subject.to_hash) }
-      it { expect(subject.as_json).to eq(subject.to_hash) }
+      it { expect(subject.as_json).to eq(subject.to_hash.deep_stringify_keys) }
     end
 
     context ComplexModel do
@@ -284,7 +284,7 @@ describe VirtusModel::Base do
 
       it { expect(subject.to_hash).to eq(subject.export) }
       it { expect(subject.to_h).to eq(subject.to_hash) }
-      it { expect(subject.as_json).to eq(subject.to_hash) }
+      it { expect(subject.as_json).to eq(subject.to_hash.deep_stringify_keys) }
     end
   end
 
