@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.version = VirtusModel::VERSION
   s.authors = ['Derek Schaefer']
   s.email = ['derek.schaefer@gmail.com']
-  s.summary = 'VirtusModel'
-  s.description = 'VirtusModel'
+  s.summary = 'VirtusModel = Virtus + ActiveModel'
+  s.description = 'A practical and pleasant union of Virtus and ActiveModel.'
   s.homepage = 'https://github.com/derek-schaefer/virtus_model'
   s.licenses = ['MIT']
 
