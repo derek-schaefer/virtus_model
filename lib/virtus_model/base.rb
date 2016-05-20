@@ -6,7 +6,7 @@ module VirtusModel
   class Base
     include ActiveModel::Conversion
     include ActiveModel::Validations
-    include Virtus.model
+    include Virtus.model(nullify_blank: true)
 
     set_callback :validate, :validate_associations
 
