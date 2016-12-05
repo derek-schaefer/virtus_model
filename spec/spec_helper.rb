@@ -6,6 +6,7 @@ Bundler.setup
 
 require 'virtus_model'
 require 'shoulda/matchers'
+require 'shoulda/callback/matchers'
 require 'active_support/core_ext/object/try'
 
 Shoulda::Matchers.configure do |config|

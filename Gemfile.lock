@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    virtus_model (0.2.7)
+    virtus_model (0.2.8)
       activemodel (~> 4.2)
       activesupport (~> 4.2)
       virtus (~> 1.0)
@@ -50,6 +50,8 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
+    shoulda-callback-matchers (1.1.4)
+      activesupport (>= 3)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
     simplecov (0.11.2)
@@ -73,9 +75,10 @@ DEPENDENCIES
   rake (~> 11.1)
   rdoc (~> 4.2)
   rspec (~> 3.4)
+  shoulda-callback-matchers (~> 1.1.4)
   shoulda-matchers (~> 3.1)
   simplecov (~> 0.11)
   virtus_model!
 
 BUNDLED WITH
-   1.11.2
+   1.12.5
