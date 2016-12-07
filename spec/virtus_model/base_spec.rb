@@ -8,6 +8,7 @@ describe VirtusModel::Base do
   let(:simple_model_attributes) { { name: 'test' } }
 
   describe SimpleModel, type: :model do
+    it { is_expected.to callback(:validate_associations).before(:validation) }
     it { is_expected.to validate_presence_of(:name) }
   end
 
@@ -27,6 +28,7 @@ describe VirtusModel::Base do
   end
 
   describe ComplexModel, type: :model do
+    it { is_expected.to callback(:validate_associations).before(:validation) }
     it { is_expected.to validate_presence_of(:model) }
     it { is_expected.to validate_presence_of(:models) }
   end
@@ -36,8 +38,19 @@ describe VirtusModel::Base do
   end
 
   describe InheritedModel, type: :model do
+    it { is_expected.to callback(:validate_associations).before(:validation) }
     it { is_expected.to validate_presence_of(:model) }
     it { is_expected.to validate_presence_of(:models) }
+  end
+
+  class CallbackModel < ComplexModel
+    after_validation :child_callback
+  end
+
+  describe CallbackModel, type: :model do
+    before(:example) { allow(subject).to receive(:child_callback) }
+    it { is_expected.to callback(:validate_associations).before(:validation) }
+    it { is_expected.to callback(:child_callback).after(:validation) }
   end
 
   describe '.attribute?' do

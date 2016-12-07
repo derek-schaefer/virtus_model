@@ -6,9 +6,10 @@ module VirtusModel
   class Base
     include ActiveModel::Conversion
     include ActiveModel::Validations
+    include ActiveModel::Validations::Callbacks
     include Virtus.model(nullify_blank: true)
 
-    set_callback :validate, :validate_associations
+    before_validation :validate_associations
 
     # Get an array of attribute names.
     def self.attributes
