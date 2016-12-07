@@ -75,10 +75,10 @@ DEPENDENCIES
   rake (~> 11.1)
   rdoc (~> 4.2)
   rspec (~> 3.4)
-  shoulda-callback-matchers (~> 1.1.4)
+  shoulda-callback-matchers (~> 1.1)
   shoulda-matchers (~> 3.1)
   simplecov (~> 0.11)
   virtus_model!
 
 BUNDLED WITH
-   1.12.5
+   1.13.6
