@@ -143,8 +143,14 @@ describe VirtusModel::Base do
 
       context 'hash' do
         let(:attributes) { { name: 'test', other: 'test' } }
+
         it { expect(subject.attributes).to include(name: 'test') }
         it { expect(subject.attributes).not_to include(other: 'test') }
+
+        it 'does not overwrite omitted fields' do
+          expect(subject.assign_attributes({})).to be_a(SimpleModel)
+          expect(subject.attributes[:name]).to eq('test')
+        end
       end
 
       context 'object' do
@@ -159,9 +165,16 @@ describe VirtusModel::Base do
       context 'hash' do
         let(:attributes) { { model: model, models: [model], other: 'test' } }
         let(:model) { { name: 'test', other: 'test' } }
+
         it { expect(subject.attributes[:model]).to eq(SimpleModel.new(model)) }
         it { expect(subject.attributes[:models]).to eq([SimpleModel.new(model)]) }
         it { expect(subject.attributes).not_to include(other: 'test') }
+
+        it 'does not overwrite omitted fields' do
+          expect(subject.assign_attributes(model: nil)).to be_a(ComplexModel)
+          expect(subject.attributes[:model]).to be(nil)
+          expect(subject.attributes[:models]).to eq([SimpleModel.new(model)])
+        end
       end
 
       context 'object' do

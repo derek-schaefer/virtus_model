@@ -108,7 +108,7 @@ module VirtusModel
       self.class.attributes.reduce({}) do |result, name|
         if model.respond_to?(name)
           result[name] = model.public_send(name)
-        elsif model.respond_to?(:[])
+        elsif model.respond_to?(:[]) && model.respond_to?(:key?) && model.key?(name)
           result[name] = model[name]
         end
         result
