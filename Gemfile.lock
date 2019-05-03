@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     virtus_model (0.3.0)
-      activemodel (~> 5.2)
-      activesupport (~> 5.2)
+      activemodel (~> 5.0)
+      activesupport (~> 5.0)
       virtus (~> 1.0)
 
 GEM
@@ -79,4 +79,4 @@ DEPENDENCIES
   virtus_model!
 
 BUNDLED WITH
-   1.16.6
+   1.17.2
