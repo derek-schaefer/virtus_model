@@ -4,7 +4,7 @@ A practical and pleasant union of [Virtus](https://rubygems.org/gems/virtus) and
 
 ## Installation
 
-Ruby version 2.2 or greater is required.
+Ruby version 2.2.2 or greater is required.
 
 ```shell
 $ gem install virtus_model
