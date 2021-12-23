@@ -12,12 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version:
-          - '2.0.0-p648'
-          - '2.1.x'
-          - '2.2.x'
-          - '2.3.x'
-          - '2.4.x'
+        ruby-version: [2.0.0-p648, 2.1.x, 2.2.x, 2.3.x, 2.4.x]
 
     steps:
     - uses: actions/checkout@v2
