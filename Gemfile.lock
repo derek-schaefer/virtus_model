@@ -35,7 +35,7 @@ GEM
     ice_nine (0.11.2)
     json (2.1.0)
     minitest (5.10.3)
-    rake (11.3.0)
+    rake (13.0.6)
     rdoc (4.3.0)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
@@ -72,7 +72,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  rake (~> 11.1)
+  rake (~> 13.0)
   rdoc (~> 4.2)
   rspec (~> 3.4)
   shoulda-callback-matchers (~> 1.1)
@@ -81,4 +81,4 @@ DEPENDENCIES
   virtus_model!
 
 BUNDLED WITH
-   1.16.0
+   1.17.3
