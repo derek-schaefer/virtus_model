@@ -2,18 +2,25 @@ name: Ruby
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: [2.0.0-p648, 2.1.9, 2.2.10, 2.3.8, 2.4.10, 2.5.9, 2.6.9, 2.7.5]
-
+        ruby-version:
+          - 2.0.0-p648
+          - 2.1.9
+          - 2.2.10
+          - 2.3.8
+          - 2.4.10
+          - 2.5.9
+          - 2.6.9
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
