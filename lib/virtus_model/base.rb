@@ -142,8 +142,8 @@ module VirtusModel
     def import_errors(name, model)
       return unless model.respond_to?(:validate)
       return if model.validate(validation_context)
-      model.errors.each do |field, error|
-        errors.add("#{name}[#{field}]", error)
+      model.errors.each do |error|
+        errors.add("#{name}[#{error.attribute}]", error.message)
       end
     end
 
