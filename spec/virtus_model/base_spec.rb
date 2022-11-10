@@ -343,7 +343,7 @@ describe VirtusModel::Base do
         subject { simple_model.assign_attributes(name: '') }
 
         it { expect(subject.valid?).to be(false) }
-        it { expect(subject.errors.messages).to include(name: ["can't be blank"]) }
+        it { expect(subject.errors.to_hash).to include({ name: ["can't be blank"] }) }
       end
     end
 
@@ -359,8 +359,8 @@ describe VirtusModel::Base do
         subject { complex_model.assign_attributes(model: {}, models: [{}]) }
 
         it { expect(subject.valid?).to be(false) }
-        it { expect(subject.errors.messages).to include(:"model[name]" => ["can't be blank"]) }
-        it { expect(subject.errors.messages).to include(:"models[0][name]" => ["can't be blank"]) }
+        it { expect(subject.errors.to_hash).to include(:"model[name]" => ["can't be blank"]) }
+        it { expect(subject.errors.to_hash).to include(:"models[0][name]" => ["can't be blank"]) }
       end
     end
   end
