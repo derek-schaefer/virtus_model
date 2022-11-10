@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/derek-schaefer/virtus_model'
   s.licenses = ['MIT']
 
-  s.required_ruby_version = '>= 2.2.2'
+  s.required_ruby_version = '>= 2.5.0'
   s.files = Dir['{lib}/**/*', 'README.md']
   s.test_files = Dir['spec/**/*']
 
